@@ -1,1 +1,14 @@
-   
+TARGET = tree
+SRC_FILES = $(wildcard *.c)
+HEADER_FILES = $(wildcard *.h)
+OBJ_FILES = $(SRC_FILES:.c=.o)
+
+$(TARGET): $(OBJ_FILES) $(HEADER_FILES)
+    g++ $(OBJ_FILES) -o $(TARGET)
+    echo $(SRC_FILES) $(HEADER_FILES) > compiled.txt
+
+%.o: %.c
+    g++ -c $< -o $@
+
+clean:
+    rm -f $(TARGET) compiled.txt $(OBJ_FILES)
